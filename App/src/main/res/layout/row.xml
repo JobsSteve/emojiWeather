@@ -2,45 +2,51 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="wrap_content"
-    android:padding="5dp">
+    android:padding="5dp"
+    android:background="#FFA500">
     <TextView
+        style="@style/AppTheme"
         android:id="@+id/dayTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Monday"
         android:padding="5dp"
-        android:textSize="24sp" />
+         />
 
     <TextView
+        style="@style/AppTheme"
         android:id="@+id/dateTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/dayTextView"
         android:padding="5dp"
         android:text="11/2"
-        android:textSize="24sp" />
+         />
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true">
     <TextView
+        style="@style/AppTheme"
         android:id="@+id/tempMaxTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#FF0000"
         android:layout_marginLeft="10dp"
-        android:textSize="24sp"
+
         android:text="81°"/>
     <TextView
+        style="@style/AppTheme"
         android:id="@+id/openBracketTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/tempMaxTextView"
         android:layout_alignBaseline="@id/tempMaxTextView"
-        android:textSize="24sp"
+
         android:text="("/>
     <TextView
+        style="@style/AppTheme"
         android:id="@+id/tempMinTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -49,16 +55,17 @@
         android:textColor="#0000CD"
 
         android:layout_marginLeft="8dp"
-        android:textSize="24sp"
+
         android:text="51"/>
 
     <TextView
+        style="@style/AppTheme"
         android:id="@+id/closeBracketTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/tempMinTextView"
         android:layout_alignBaseline="@id/tempMaxTextView"
-        android:textSize="24sp"
+
         android:text=")"/>
     </RelativeLayout>
 
