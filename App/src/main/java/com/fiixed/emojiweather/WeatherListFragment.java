@@ -2,7 +2,6 @@ package com.fiixed.emojiweather;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.support.v4.app.ListFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,31 +12,25 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.TimeZone;
-
 /**
  * Created by abell on 11/21/13.
  */
 public class WeatherListFragment extends Fragment {
     private final String API_URL = "https://api.forecast.io/forecast/8fc2b0556e166fa4670d4014d318152a/-37.813611,144.963056";
-    private final String TAG = "com.fiixed.emojweather.WeatherListFragment";
+
 
     ListView mListView;
     Weather[] myWeatherArray = {};
     WeatherAdapter weatherAdapter;
 
-//
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
@@ -52,7 +45,7 @@ public class WeatherListFragment extends Fragment {
 
         weatherAdapter = new WeatherAdapter(getActivity().getApplicationContext(), R.layout.row, myWeatherArray);
 
-//        mListView = getListView();
+
         mListView = (ListView) view.findViewById(R.id.listView);
 
         if (mListView != null) {
@@ -81,10 +74,7 @@ public class WeatherListFragment extends Fragment {
                         myWeatherObject.setmTempMax(day.getInt("temperatureMax"));
                         myWeatherObject.setIcon(day.getString("icon"));
                         myWeatherArray[i] = myWeatherObject;
-//                        myWeatherArray[i].setmDate(day.getInt("time"));
-//                        myWeatherArray[i].setmTempMin(day.getString("temperatureMin"));
-//                        myWeatherArray[i].setmTempMax(day.getString("temperatureMax"));
-//                        myWeatherArray[i].setIcon(day.getString("icon"));
+
                     }
 
                 } catch (JSONException e) {
