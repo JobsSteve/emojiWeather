@@ -72,7 +72,16 @@ public class Weather {
     public String simpleDate(int date) {
         String formattedDate;
         Date date1 = new Date(getmDate() * 1000L); // *1000 is to convert minutes to milliseconds
-        SimpleDateFormat sdf = new SimpleDateFormat("EEE, MMM d"); // the format of your date
+        SimpleDateFormat sdf = new SimpleDateFormat("MMM d"); // the format of your date
+        sdf.setTimeZone(TimeZone.getTimeZone("GMT+11"));
+        formattedDate = sdf.format(date1);
+        return formattedDate;
+    }
+
+    public String simpleDay(int date) {
+        String formattedDate;
+        Date date1 = new Date(getmDate() * 1000L); // *1000 is to convert minutes to milliseconds
+        SimpleDateFormat sdf = new SimpleDateFormat("EEE"); // the format of your date
         sdf.setTimeZone(TimeZone.getTimeZone("GMT+11"));
         formattedDate = sdf.format(date1);
         return formattedDate;

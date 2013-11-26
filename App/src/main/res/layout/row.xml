@@ -1,27 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:padding="5dp">
     <TextView
         android:id="@+id/dayTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Monday"/>
+        android:text="Monday"
+        android:padding="5dp"
+        android:textSize="24sp" />
 
     <TextView
         android:id="@+id/dateTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/dayTextView"
-        android:padding="10dp"
-        android:text="11/2"/>
+        android:padding="5dp"
+        android:text="11/2"
+        android:textSize="24sp" />
 
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
     <TextView
         android:id="@+id/tempMaxTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/dayTextView"
+        android:textColor="#FF0000"
         android:layout_marginLeft="10dp"
+        android:textSize="24sp"
         android:text="81°"/>
     <TextView
         android:id="@+id/openBracketTextView"
@@ -29,7 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/tempMaxTextView"
         android:layout_alignBaseline="@id/tempMaxTextView"
-
+        android:textSize="24sp"
         android:text="("/>
     <TextView
         android:id="@+id/tempMinTextView"
@@ -37,8 +46,10 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/tempMaxTextView"
         android:layout_alignBaseline="@id/tempMaxTextView"
-        android:textColor="#FF0000"
-        android:padding="5dp"
+        android:textColor="#0000CD"
+
+        android:layout_marginLeft="8dp"
+        android:textSize="24sp"
         android:text="51"/>
 
     <TextView
@@ -47,12 +58,16 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/tempMinTextView"
         android:layout_alignBaseline="@id/tempMaxTextView"
+        android:textSize="24sp"
         android:text=")"/>
+    </RelativeLayout>
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        />
+        android:layout_centerInParent="true"
+        android:minHeight="50dp"
+        android:minWidth="50dp" />
 </RelativeLayout>
