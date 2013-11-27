@@ -68,8 +68,8 @@ public class WeatherAdapter extends ArrayAdapter<Weather> {
 
 
         //setting the view to the data we need to display
-        holder.day.setText(weather.simpleDay(weather.getmDate()));
-        holder.date.setText(weather.simpleDate(weather.getmDate()));
+        holder.day.setText(weather.simpleDay());
+        holder.date.setText(weather.simpleDate());
         holder.tempMin.setText(String.valueOf(weather.fahrenheitToCelsius(weather.getmTempMin())) + "°");
         holder.tempMax.setText(String.valueOf(weather.fahrenheitToCelsius(weather.getmTempMax())) + "°");
 
@@ -77,8 +77,6 @@ public class WeatherAdapter extends ArrayAdapter<Weather> {
         holder.imageView.setImageResource(resId);
 
         //returning the row view(because this is called getView after all)
-
-
         return row;
     }
 
