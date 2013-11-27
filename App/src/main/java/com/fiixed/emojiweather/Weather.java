@@ -61,19 +61,19 @@ public class Weather {
     //convert time to readable date
     public String simpleDate() {
         String formattedDate;
-        Date date1 = new Date(getmDate() * 1000L); // *1000 is to convert minutes to milliseconds
+        Date date = new Date(getmDate() * 1000L); // *1000 is to convert minutes to milliseconds
         SimpleDateFormat sdf = new SimpleDateFormat("MMM d"); // the format of your date
         sdf.setTimeZone(TimeZone.getTimeZone("GMT+11"));
-        formattedDate = sdf.format(date1);
+        formattedDate = sdf.format(date);
         return formattedDate;
     }
 
     public String simpleDay() {
         String formattedDate;
-        Date date1 = new Date(getmDate() * 1000L); // *1000 is to convert minutes to milliseconds
+        Date date = new Date(getmDate() * 1000L); // *1000 is to convert minutes to milliseconds
         SimpleDateFormat sdf = new SimpleDateFormat("EEE"); // the format of your date
         sdf.setTimeZone(TimeZone.getTimeZone("GMT+11"));
-        formattedDate = sdf.format(date1);
+        formattedDate = sdf.format(date);
         return formattedDate;
     }
 
