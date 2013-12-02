@@ -1,13 +1,7 @@
 package com.fiixed.emojiweather;
 
-import android.app.Fragment;
+import android.app.ListFragment;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ListView;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -22,37 +16,32 @@ import org.json.JSONObject;
 /**
  * Created by abell on 11/21/13.
  */
-public class WeatherListFragment extends Fragment {
-    private final String API_URL = "https://api.forecast.io/forecast/8fc2b0556e166fa4670d4014d318152a/-37.813611,144.963056";
+public class WeatherListFragment extends ListFragment {
+    private final String initialURL = "https://api.forecast.io/forecast/8fc2b0556e166fa4670d4014d318152a/";
+
+    private String API_URL = setLatLong(initialURL);
+
+    private static String setLatLong(String roughURL) {
+
+        return roughURL + "-37.813611,144.963056";
+    }
 
 
-    ListView mListView;
     Weather[] myWeatherArray = {};
     WeatherAdapter weatherAdapter;
 
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-        return rootView;
-    }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
         //Setup ListView
 
         weatherAdapter = new WeatherAdapter(getActivity().getApplicationContext(), R.layout.row, myWeatherArray);
 
 
-        mListView = (ListView) view.findViewById(R.id.listView);
-
-        if (mListView != null) {
-            mListView.setAdapter(weatherAdapter);
-        }else{
-            Log.e("ERROR","I dont have a listview");
-        }
+        setListAdapter(weatherAdapter);
 
 
 

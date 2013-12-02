@@ -2,7 +2,6 @@ package com.fiixed.emojiweather;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.TimeZone;
 
 /**
