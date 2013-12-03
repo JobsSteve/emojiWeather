@@ -135,6 +135,7 @@ public class WeatherListFragment extends ListFragment implements LocationListene
         String longString = String.valueOf(longDouble);
 
         String latLong = latString + "," + longString;
+        Log.e("gps", latLong);
         currentLoc = latLong;
 
         getData();

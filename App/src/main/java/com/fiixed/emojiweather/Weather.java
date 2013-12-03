@@ -70,8 +70,8 @@ public class Weather {
     public String simpleDay() {
         String formattedDate;
         Date date = new Date(getmDate() * 1000L); // *1000 is to convert minutes to milliseconds
-        SimpleDateFormat sdf = new SimpleDateFormat("EEE"); // the format of your date
-        sdf.setTimeZone(TimeZone.getTimeZone("GMT+11"));
+        SimpleDateFormat sdf = new SimpleDateFormat("EEEE"); // the format of your date
+//        sdf.setTimeZone(TimeZone.getTimeZone("GMT+11"));
         formattedDate = sdf.format(date);
         return formattedDate;
     }
@@ -83,8 +83,12 @@ public class Weather {
             return "ten";
         } else if ("partly-cloudy-night".equals(icon)) {
             return "twelve";
-        } else {
+        } else if ("wind".equals(icon)) {
+            return "seven";
+        } else if ("sleet".equals(icon)) {
             return "one";
+        } else {
+            return "eleven";
         }
     }
 
