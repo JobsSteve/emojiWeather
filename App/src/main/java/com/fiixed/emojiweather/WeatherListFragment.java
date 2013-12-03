@@ -7,6 +7,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -23,47 +24,63 @@ import org.json.JSONObject;
 /**
  * Created by abell on 11/21/13.
  */
-public class WeatherListFragment extends ListFragment {
+public class WeatherListFragment extends ListFragment implements LocationListener{
+
     private final String initialURL = "https://api.forecast.io/forecast/8fc2b0556e166fa4670d4014d318152a/";
+    Weather[] myWeatherArray = {};
+    WeatherAdapter weatherAdapter;
+    LocationManager mLocationManager;
+    String currentLoc;
 
-//    private String API_URL = setLatLong(initialURL);
-      private String API_URL = "";
 
+    @Override
+    public void onLocationChanged(Location location) {
+        // Called when a new location is found by the network location provider.
+        makeUseOfNewLocation(location);
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
+    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        mLocationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+
+        makeUseOfNewLocation(mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER));
+        mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1, 1, this);
+        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1, 1, this);
+
 
     }
-
-    private static String setLatLong(String roughURL, Location location) {
-        String latitude =  Location.convert(location.getLatitude(), Location.FORMAT_DEGREES);
-        String longitude = Location.convert(location.getLongitude(), Location.FORMAT_DEGREES);
-        Log.e("gps", latitude + "," + longitude);
-
-        return roughURL +  latitude + "," + longitude;
-
-    }
-
-
-    Weather[] myWeatherArray = {};
-    WeatherAdapter weatherAdapter;
-
-
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         //Setup ListView
 
         weatherAdapter = new WeatherAdapter(getActivity().getApplicationContext(), R.layout.row, myWeatherArray);
 
 
         setListAdapter(weatherAdapter);
+    }
 
 
+    public void getData() {
+
+        String API_URL = setLatLong(initialURL, currentLoc);
 
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
 
@@ -103,29 +120,31 @@ public class WeatherListFragment extends ListFragment {
         requestQueue.add(jsonObjectRequest);
     }
 
-    public void getLocation() {
-        // Acquire a reference to the system Location Manager
-        LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+    public void makeUseOfNewLocation(Location location) {
 
-        // Define a listener that responds to location updates
-        LocationListener locationListener = new LocationListener() {
-            public void onLocationChanged(Location location) {
-                // Called when a new location is found by the network location provider.
-                API_URL = setLatLong(initialURL, location);
-                Log.e("gps", API_URL);
-            }
+        if (location == null) {
+            return;
+        }
 
-            public void onStatusChanged(String provider, int status, Bundle extras) {}
+        mLocationManager.removeUpdates(this);
 
-            public void onProviderEnabled(String provider) {}
+        double latDouble = location.getLatitude();
+        double longDouble = location.getLongitude();
 
-            public void onProviderDisabled(String provider) {}
-        };
+        String latString = String.valueOf(latDouble);
+        String longString = String.valueOf(longDouble);
 
-        // Register the listener with the Location Manager to receive location updates
-        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
+        String latLong = latString + "," + longString;
+        currentLoc = latLong;
 
-        // Remove the listener you previously added
-        locationManager.removeUpdates(locationListener);
+        getData();
+
     }
+
+    public String setLatLong(String roughURL, String loc) {
+
+        return roughURL + loc;
+
+    }
+
 }
