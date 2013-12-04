@@ -1,5 +1,7 @@
 package com.fiixed.emojiweather;
 
+import android.app.Activity;
+import android.app.Fragment;
 import android.app.ListFragment;
 import android.content.Context;
 import android.location.Location;
@@ -8,6 +10,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -31,6 +34,51 @@ public class WeatherListFragment extends ListFragment implements LocationListene
     WeatherAdapter weatherAdapter;
     LocationManager mLocationManager;
     String currentLoc;
+
+    OnWeatherSelectedListener mCallback;
+
+    // The container Activity must implement this interface so the frag can deliver messages
+    public interface OnWeatherSelectedListener {
+        /** Called by HeadlinesFragment when a list item is selected */
+        public void onWeatherSelected(int position);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        Fragment f = getFragmentManager().findFragmentById(R.id.weather_detail_fragment);
+        ListView v = getListView();
+
+        //checking to see if both the article and headline fragment are both active
+        if(f != null && v != null) {
+            v.setChoiceMode(ListView.CHOICE_MODE_SINGLE);  //make each list item sticky
+        }
+
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        //make sure the activity we're attached to actually has implemented the right callback method
+        try{
+            mCallback = (OnWeatherSelectedListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString() + "must implement onHeadLineSelectedListener!!");
+        }
+
+
+    }
+
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+
+        //call back to the parent activity with the selected item
+        mCallback.onWeatherSelected(position);
+        l.setItemChecked(position, true);
+
+    }
 
 
     @Override

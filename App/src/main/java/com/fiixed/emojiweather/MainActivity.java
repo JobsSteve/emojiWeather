@@ -5,16 +5,25 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity implements WeatherListFragment.OnWeatherSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if(savedInstanceState == null) {
+        if(findViewById(R.id.container) != null) {
+
+            if(savedInstanceState !=null) {
+                return;
+            }
+
+            WeatherListFragment weatherListFragment = new WeatherListFragment();
+
+            weatherListFragment.setArguments(getIntent().getExtras());
+
             getFragmentManager().beginTransaction()
-                    .add(R.id.container, new WeatherListFragment())
+                    .add(R.id.container, weatherListFragment)
                     .commit();
         }
 
@@ -43,5 +52,29 @@ public class MainActivity extends ActionBarActivity {
     }
 
 
+    @Override
+    public void onWeatherSelected(int position) {
+        // The user selected the headline of an article from the HeadlinesFragment
 
+
+        WeatherDetailFragment weatherDetailFragment = (WeatherDetailFragment) getSupportFragmentManager().findFragmentById(R.id.weather_detail_fragment);
+
+        //One pane layout
+        if(weatherDetailFragment == null) {
+            WeatherDetailFragment onePaneFragment = new WeatherDetailFragment();
+
+            Bundle args = new Bundle();
+            args.putInt(WeatherDetailFragment.ARG_POSITION, position);
+            onePaneFragment.setArguments(args);
+
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.container, onePaneFragment)
+                    .addToBackStack(null)
+                    .commit();
+
+    } else {
+        //Two Pane Layout
+        weatherDetailFragment.updateWeatherView(position);
+    }
+    }
 }
