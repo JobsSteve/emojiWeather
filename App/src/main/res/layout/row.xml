@@ -1,83 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:padding="5dp"
-    android:background="#FFA500">
+    android:background="#FFFFCC">
 
-    <ListView android:id="@id/android:list"
+    <ListView
+        android:id="@id/android:list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:drawSelectorOnTop="false"/>
-    <TextView
-        style="@style/AppTheme"
-        android:id="@+id/dayTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:drawSelectorOnTop="false" />
 
-        android:padding="5dp"
-         />
-
-    <TextView
-        style="@style/AppTheme"
-        android:id="@+id/dateTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/dayTextView"
-        android:padding="5dp"
-
-         />
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true">
-    <TextView
-        style="@style/AppTheme"
-        android:id="@+id/tempMaxTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#FF0000"
-        android:layout_marginLeft="10dp"
 
-        />
-    <TextView
-        style="@style/AppTheme"
-        android:id="@+id/openBracketTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/tempMaxTextView"
-        android:layout_alignBaseline="@id/tempMaxTextView"
-        android:text="("
+        <TextView
+            style="@style/AppTheme"
+            android:id="@+id/dayTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true" />
 
-       />
-    <TextView
-        style="@style/AppTheme"
-        android:id="@+id/tempMinTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/tempMaxTextView"
-        android:layout_alignBaseline="@id/tempMaxTextView"
-        android:textColor="#0000CD"
+        <TextView
+            style="@style/AppTheme"
+            android:id="@+id/dateTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/dayTextView"
+            android:layout_centerInParent="true"
 
-        android:layout_marginLeft="8dp"
 
-        />
+            />
 
-    <TextView
-        style="@style/AppTheme"
-        android:id="@+id/closeBracketTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/tempMinTextView"
-        android:layout_alignBaseline="@id/tempMaxTextView"
-        android:text=")"
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_centerInParent="true"
+            android:layout_below="@id/dateTextView">
 
-        />
+            <TextView
+                style="@style/AppTheme"
+                android:id="@+id/tempMaxTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#FF0000" />
+
+            <TextView
+                style="@style/AppTheme"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="/" />
+
+            <TextView
+                style="@style/AppTheme"
+                android:id="@+id/tempMaxFTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#FF0000" />
+
+            <TextView
+                style="@style/AppTheme"
+                android:id="@+id/openBracketTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="(" />
+
+            <TextView
+                style="@style/AppTheme"
+                android:id="@+id/tempMinTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:textColor="#0000CD"
+
+                />
+
+            <TextView
+                style="@style/AppTheme"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="/" />
+
+            <TextView
+                style="@style/AppTheme"
+                android:id="@+id/tempMinFTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:textColor="#0000CD"
+
+                />
+
+            <TextView
+                style="@style/AppTheme"
+                android:id="@+id/closeBracketTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text=")"
+
+                />
+        </LinearLayout>
     </RelativeLayout>
 
     <ImageView
         android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerInParent="true"
+        android:minHeight="50dp"
+        android:minWidth="50dp" />
+
+    <ImageView
+        android:id="@+id/imageView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"

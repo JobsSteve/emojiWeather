@@ -50,8 +50,11 @@ public class WeatherAdapter extends ArrayAdapter<Weather> {
             holder.day = (TextView) row.findViewById(R.id.dayTextView);
             holder.date = (TextView) row.findViewById(R.id.dateTextView);
             holder.tempMin = (TextView) row.findViewById(R.id.tempMinTextView);
+            holder.tempMinF = (TextView) row.findViewById(R.id.tempMinFTextView);
             holder.tempMax = (TextView) row.findViewById(R.id.tempMaxTextView);
+            holder.tempMaxF = (TextView) row.findViewById(R.id.tempMaxFTextView);
             holder.imageView = (ImageView) row.findViewById(R.id.imageView);
+            holder.imageView2 = (ImageView) row.findViewById(R.id.imageView2);
             row.setTag(holder);
 
         } else {
@@ -65,11 +68,16 @@ public class WeatherAdapter extends ArrayAdapter<Weather> {
         //setting the view to the data we need to display
         holder.day.setText(weather.simpleDay());
         holder.date.setText(weather.simpleDate());
-        holder.tempMin.setText(String.valueOf(weather.fahrenheitToCelsius(weather.getmTempMin())) + "°");
-        holder.tempMax.setText(String.valueOf(weather.fahrenheitToCelsius(weather.getmTempMax())) + "°");
+        holder.tempMin.setText(String.valueOf(weather.fahrenheitToCelsius(weather.getmTempMin())) + "°C");
+        holder.tempMinF.setText(String.valueOf(weather.getmTempMin()) + "°F");
+        holder.tempMax.setText(String.valueOf(weather.fahrenheitToCelsius(weather.getmTempMax())) + "°C");
+        holder.tempMaxF.setText(String.valueOf(weather.getmTempMax()) + "°F");
 
         int resId = mContext.getResources().getIdentifier(weather.getEmoji(weather.getIcon()), "drawable", mContext.getPackageName());
         holder.imageView.setImageResource(resId);
+
+        int resId2 = mContext.getResources().getIdentifier(weather.getEmoji(weather.getIcon()), "drawable", mContext.getPackageName());
+        holder.imageView2.setImageResource(resId2);
 
         //returning the row view(because this is called getView after all)
         return row;
@@ -85,7 +93,10 @@ public class WeatherAdapter extends ArrayAdapter<Weather> {
         public TextView day;
         public TextView date;
         public TextView tempMin;
+        public TextView tempMinF;
         public TextView tempMax;
+        public TextView tempMaxF;
         public ImageView imageView;
+        public ImageView imageView2;
     }
 }
