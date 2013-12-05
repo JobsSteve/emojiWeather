@@ -87,6 +87,8 @@ public class Weather {
             return "seven";
         } else if ("sleet".equals(icon)) {
             return "one";
+        } else if ("clear-day".equals(icon)) {
+            return "five";
         } else {
             return "eleven";
         }
