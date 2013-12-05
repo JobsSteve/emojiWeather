@@ -29,8 +29,6 @@ public class MainActivity extends ActionBarActivity implements WeatherListFragme
 
     }
 
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         
@@ -53,7 +51,7 @@ public class MainActivity extends ActionBarActivity implements WeatherListFragme
 
 
     @Override
-    public void onWeatherSelected(int position) {
+    public void onWeatherSelected(String data) {
         // The user selected the headline of an article from the HeadlinesFragment
 
 
@@ -64,7 +62,9 @@ public class MainActivity extends ActionBarActivity implements WeatherListFragme
             WeatherDetailFragment onePaneFragment = new WeatherDetailFragment();
 
             Bundle args = new Bundle();
-            args.putInt(WeatherDetailFragment.ARG_POSITION, position);
+
+            args.putString(WeatherDetailFragment.JSON_OBJECT, data);
+
             onePaneFragment.setArguments(args);
 
             getSupportFragmentManager().beginTransaction()
@@ -74,7 +74,7 @@ public class MainActivity extends ActionBarActivity implements WeatherListFragme
 
     } else {
         //Two Pane Layout
-        weatherDetailFragment.updateWeatherView(position);
+        weatherDetailFragment.updateWeatherView(data);
     }
     }
 }

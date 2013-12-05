@@ -34,13 +34,15 @@ public class WeatherListFragment extends ListFragment implements LocationListene
     WeatherAdapter weatherAdapter;
     LocationManager mLocationManager;
     String currentLoc;
+    JSONArray data;
+    JSONObject day;
 
     OnWeatherSelectedListener mCallback;
 
     // The container Activity must implement this interface so the frag can deliver messages
     public interface OnWeatherSelectedListener {
         /** Called by HeadlinesFragment when a list item is selected */
-        public void onWeatherSelected(int position);
+        public void onWeatherSelected(String data);
     }
 
     @Override
@@ -75,8 +77,12 @@ public class WeatherListFragment extends ListFragment implements LocationListene
     public void onListItemClick(ListView l, View v, int position, long id) {
 
         //call back to the parent activity with the selected item
-        mCallback.onWeatherSelected(position);
-        l.setItemChecked(position, true);
+        try{
+            String data1 = data.get(position).toString();
+            mCallback.onWeatherSelected(data1);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -138,10 +144,10 @@ public class WeatherListFragment extends ListFragment implements LocationListene
 
                 try {
                     JSONObject daily = response.getJSONObject("daily");
-                    JSONArray data = daily.getJSONArray("data");
+                    data = daily.getJSONArray("data");
                     myWeatherArray = new Weather[data.length()];
                     for (int i = 0; i < myWeatherArray.length; i++) {
-                        JSONObject day = data.getJSONObject(i);
+                        day = data.getJSONObject(i);
                         Weather myWeatherObject = new Weather();
                         myWeatherObject.setmDate(day.getInt("time"));
                         myWeatherObject.setmTempMin(day.getInt("temperatureMin"));
