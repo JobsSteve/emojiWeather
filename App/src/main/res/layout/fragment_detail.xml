@@ -6,7 +6,7 @@
     android:background="#FFFFCC">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/detail_image_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -18,7 +18,7 @@
 
     <TextView
         style="@style/AppTheme"
-        android:id="@+id/dayTextView"
+        android:id="@+id/detail_day_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -26,23 +26,23 @@
 
     <TextView
         style="@style/AppTheme"
-        android:id="@+id/dateTextView"
+        android:id="@+id/detail_date_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/dayTextView"
+        android:layout_below="@+id/detail_day_text_view"
         android:layout_centerInParent="true" />
 
     <LinearLayout
-        android:id="@+id/tempLinear"
+        android:id="@+id/temp_linear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_centerInParent="true"
-        android:layout_below="@id/dateTextView">
+        android:layout_below="@id/detail_date_text_view">
 
         <TextView
             style="@style/AppTheme"
-            android:id="@+id/tempMaxTextView"
+            android:id="@+id/detail_temp_max_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#FF0000" />
@@ -57,14 +57,14 @@
 
         <TextView
             style="@style/AppTheme"
-            android:id="@+id/tempMaxFTextView"
+            android:id="@+id/detail_temp_max_f_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#FF0000" />
 
         <TextView
             style="@style/AppTheme"
-            android:id="@+id/openBracketTextView"
+            android:id="@+id/open_bracket_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
@@ -72,7 +72,7 @@
 
         <TextView
             style="@style/AppTheme"
-            android:id="@+id/tempMinTextView"
+            android:id="@+id/detail_temp_min_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
@@ -90,7 +90,7 @@
 
         <TextView
             style="@style/AppTheme"
-            android:id="@+id/tempMinFTextView"
+            android:id="@+id/detail_temp_min_f_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
@@ -110,10 +110,10 @@
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/detail_image_view2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tempLinear"
+        android:layout_below="@id/temp_linear"
         android:layout_alignParentBottom="true"
         android:layout_centerInParent="true"
         android:minHeight="200dp"

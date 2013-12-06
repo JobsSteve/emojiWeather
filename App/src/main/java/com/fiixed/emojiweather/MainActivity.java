@@ -1,11 +1,13 @@
 package com.fiixed.emojiweather;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends ActionBarActivity implements WeatherListFragment.OnWeatherSelectedListener {
+public class MainActivity extends Activity implements WeatherListFragment.OnWeatherSelectedListener {
+
+    private static final String TAG = MainActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +57,15 @@ public class MainActivity extends ActionBarActivity implements WeatherListFragme
         // The user selected the headline of an article from the HeadlinesFragment
 
 
-        WeatherDetailFragment weatherDetailFragment = (WeatherDetailFragment) getSupportFragmentManager().findFragmentById(R.id.weather_detail_fragment);
+        WeatherDetailFragment weatherDetailFragment = (WeatherDetailFragment) getFragmentManager().findFragmentById(R.id.weather_detail_fragment);
+
+//        List<Fragment> fragments = getSupportFragmentManager().getFragments();
+//        if (fragments != null) {
+//            for (Fragment f : fragments) {
+//                Object o = f;
+//                Log.i(TAG, String.format("I am a %s!\n", o.getClass().getSimpleName()));
+//            }
+//        }
 
         //One pane layout
         if(weatherDetailFragment == null) {
@@ -67,14 +77,15 @@ public class MainActivity extends ActionBarActivity implements WeatherListFragme
 
             onePaneFragment.setArguments(args);
 
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container, onePaneFragment)
+            getFragmentManager().beginTransaction()
                     .addToBackStack(null)
+                    .replace(R.id.container, onePaneFragment)
                     .commit();
 
-    } else {
-        //Two Pane Layout
-        weatherDetailFragment.updateWeatherView(data);
-    }
+        } else {
+            //Two Pane Layout
+    //            throw new IllegalStateException("WTF, MATE!?");
+            weatherDetailFragment.updateWeatherView(data);
+        }
     }
 }

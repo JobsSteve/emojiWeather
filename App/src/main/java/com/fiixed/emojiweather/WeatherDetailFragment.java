@@ -1,7 +1,8 @@
 package com.fiixed.emojiweather;
 
+import android.app.Fragment;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,14 +58,14 @@ public class WeatherDetailFragment extends Fragment {
     public void updateWeatherView(String data) {
         dataToSave = data;
         View v = getView();
-        TextView day = (TextView) v.findViewById(R.id.dayTextView);
-        TextView date = (TextView) v.findViewById(R.id.dateTextView);
-        TextView tempMin = (TextView) v.findViewById(R.id.tempMinTextView);
-        TextView tempMinF = (TextView) v.findViewById(R.id.tempMinFTextView);
-        TextView tempMax = (TextView) v.findViewById(R.id.tempMaxTextView);
-        TextView tempMaxF = (TextView) v.findViewById(R.id.tempMaxFTextView);
-        ImageView imageView = (ImageView) v.findViewById(R.id.imageView);
-        ImageView imageView2 = (ImageView) v.findViewById(R.id.imageView2);
+        TextView day = (TextView) v.findViewById(R.id.detail_day_text_view);
+        TextView date = (TextView) v.findViewById(R.id.detail_date_text_view);
+        TextView tempMin = (TextView) v.findViewById(R.id.detail_temp_min_text_view);
+        TextView tempMinF = (TextView) v.findViewById(R.id.detail_temp_min_f_text_view);
+        TextView tempMax = (TextView) v.findViewById(R.id.detail_temp_max_text_view);
+        TextView tempMaxF = (TextView) v.findViewById(R.id.detail_temp_max_f_text_view);
+        ImageView imageView = (ImageView) v.findViewById(R.id.detail_image_view);
+        ImageView imageView2 = (ImageView) v.findViewById(R.id.detail_image_view2);
         try{
             JSONObject jsonObj = new JSONObject(data);
 
