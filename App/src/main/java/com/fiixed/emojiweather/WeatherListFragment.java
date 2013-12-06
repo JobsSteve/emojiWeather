@@ -3,23 +3,14 @@ package com.fiixed.emojiweather;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.ListFragment;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
-import android.util.LruCache;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.RemoteViews;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -38,7 +29,7 @@ import org.json.JSONObject;
 /**
  * Created by abell on 11/21/13.
  */
-public class WeatherListFragment extends ListFragment implements LocationListener{
+public class WeatherListFragment extends ListFragment implements LocationListener {
 
     private final String initialURL = "https://api.forecast.io/forecast/8fc2b0556e166fa4670d4014d318152a/";
     Weather[] myWeatherArray = {};
@@ -55,7 +46,9 @@ public class WeatherListFragment extends ListFragment implements LocationListene
 
     // The container Activity must implement this interface so the frag can deliver messages
     public interface OnWeatherSelectedListener {
-        /** Called by HeadlinesFragment when a list item is selected */
+        /**
+         * Called by HeadlinesFragment when a list item is selected
+         */
         public void onWeatherSelected(String data);
     }
 
@@ -67,7 +60,7 @@ public class WeatherListFragment extends ListFragment implements LocationListene
         ListView v = getListView();
 
         //checking to see if both the article and headline fragment are both active
-        if(f != null && v != null) {
+        if (f != null && v != null) {
             v.setChoiceMode(ListView.CHOICE_MODE_SINGLE);  //make each list item sticky
         }
 
@@ -92,7 +85,7 @@ public class WeatherListFragment extends ListFragment implements LocationListene
     public void onListItemClick(ListView l, View v, int position, long id) {
 
         //call back to the parent activity with the selected item
-        try{
+        try {
             String data1 = data.get(position).toString();
             mCallback.onWeatherSelected(data1);
         } catch (JSONException e) {
@@ -124,6 +117,7 @@ public class WeatherListFragment extends ListFragment implements LocationListene
     public void onProviderDisabled(String provider) {
 
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -133,7 +127,6 @@ public class WeatherListFragment extends ListFragment implements LocationListene
         makeUseOfNewLocation(mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER));
         mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1, 1, this);
         mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1, 1, this);
-
 
 
     }
@@ -147,7 +140,7 @@ public class WeatherListFragment extends ListFragment implements LocationListene
 
 
         setListAdapter(weatherAdapter);
-        notificationsTest();
+
 
 //        getNetworkImage();
     }
@@ -224,7 +217,6 @@ public class WeatherListFragment extends ListFragment implements LocationListene
     }
 
 
-
 //    public void getNetworkImage() {
 //        mImageView = (NetworkImageView)getActivity().findViewById(R.id.imageView2);
 //
@@ -296,6 +288,6 @@ public class WeatherListFragment extends ListFragment implements LocationListene
 //            }
 //        });
 //    }
-    }
+}
 
 

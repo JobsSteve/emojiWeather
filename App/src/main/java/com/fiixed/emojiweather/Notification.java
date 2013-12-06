@@ -15,20 +15,20 @@ import android.widget.RemoteViews;
  * Created by abell on 12/6/13.
  */
 public class Notification {
-    Activity activity;
+    Context context;
 
-    public Notification(Activity activity) {
-        this.activity = activity;
-        Bitmap bm = BitmapFactory.decodeResource(activity.getResources(), R.drawable.weather);
+    public Notification(Context context) {
+        this.context = context;
+        Bitmap bm = BitmapFactory.decodeResource(context.getResources(), R.drawable.weather);
 
-        RemoteViews customNotifView = new RemoteViews(activity.getPackageName(),
+        RemoteViews customNotifView = new RemoteViews(context.getPackageName(),
                 R.layout.custom_notification);
         customNotifView.setTextViewText(R.id.text, "Its raining!");
         customNotifView.setImageViewResource(R.id.imageView, R.drawable.weather);
 
 
         NotificationCompat.Builder mBuilder =
-                new NotificationCompat.Builder(activity)
+                new NotificationCompat.Builder(context)
                         .setSmallIcon(R.drawable.weather)
                         .setLargeIcon(bm)
                         .setContentTitle("My notification")
@@ -61,13 +61,13 @@ public class Notification {
         // Issue the notification here.
 
         // Creates an explicit intent for an Activity in your app
-        Intent resultIntent = new Intent(activity, MainActivity.class);
+        Intent resultIntent = new Intent(context, MainActivity.class);
 
         // The stack builder object will contain an artificial back stack for the
         // started Activity.
         // This ensures that navigating backward from the Activity leads out of
         // your application to the Home screen.
-        TaskStackBuilder stackBuilder = TaskStackBuilder.create(activity);
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
         // Adds the back stack for the Intent (but not the Intent itself)
         stackBuilder.addParentStack(MainActivity.class);
         // Adds the Intent that starts the Activity to the top of the stack
@@ -79,7 +79,7 @@ public class Notification {
                 );
         mBuilder.setContentIntent(resultPendingIntent);
         NotificationManager mNotificationManager =
-                (NotificationManager) activity.getSystemService(Context.NOTIFICATION_SERVICE);
+                (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         // mId allows you to update the notification later on.
         int mId = 1;
         mNotificationManager.notify(mId, mBuilder.build());
