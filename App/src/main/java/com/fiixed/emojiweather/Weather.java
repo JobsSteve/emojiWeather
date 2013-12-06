@@ -94,6 +94,24 @@ public class Weather {
         }
     }
 
+    public String getNetworkImage(String icon) {
+        if ("partly-cloudy-day".equals(icon)) {
+            return "https://ajax.googleapis.com/ajax/services/search/images?v=1.0&q=partly%20cloudy%20day";
+        } else if ("rain".equals(icon)) {
+            return "https://ajax.googleapis.com/ajax/services/search/images?v=1.0&q=rain";
+        } else if ("partly-cloudy-night".equals(icon)) {
+            return "https://ajax.googleapis.com/ajax/services/search/images?v=1.0&q=partly%20cloudy%20night";
+        } else if ("wind".equals(icon)) {
+            return "https://ajax.googleapis.com/ajax/services/search/images?v=1.0&q=wind";
+        } else if ("sleet".equals(icon)) {
+            return "https://ajax.googleapis.com/ajax/services/search/images?v=1.0&q=sleet";
+        } else if ("clear-day".equals(icon)) {
+            return "https://ajax.googleapis.com/ajax/services/search/images?v=1.0&q=clear%20day";
+        } else {
+            return "eleven";
+        }
+    }
+
     public void setIcon(String icon) {
         this.icon = icon;
     }

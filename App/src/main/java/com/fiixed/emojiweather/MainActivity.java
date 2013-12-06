@@ -1,6 +1,7 @@
 package com.fiixed.emojiweather;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,7 +29,19 @@ public class MainActivity extends Activity implements WeatherListFragment.OnWeat
                     .add(R.id.container, weatherListFragment)
                     .commit();
         }
+//        Intent i = new Intent(this,HelloIntentService.class);
+//        startService(i);
 
+        Intent i = new Intent(this,NotificationService.class);
+        startService(i);
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Intent i = new Intent(this,NotificationService.class);
+        startService(i);
     }
 
     @Override

@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
+import android.util.LruCache;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.RemoteViews;
@@ -25,7 +26,9 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
@@ -39,11 +42,14 @@ public class WeatherListFragment extends ListFragment implements LocationListene
 
     private final String initialURL = "https://api.forecast.io/forecast/8fc2b0556e166fa4670d4014d318152a/";
     Weather[] myWeatherArray = {};
+    Weather myWeatherObject;
     WeatherAdapter weatherAdapter;
     LocationManager mLocationManager;
     String currentLoc;
     JSONArray data;
     JSONObject day;
+    ImageLoader mImageLoader;
+    NetworkImageView mImageView;
 
     OnWeatherSelectedListener mCallback;
 
@@ -142,6 +148,8 @@ public class WeatherListFragment extends ListFragment implements LocationListene
 
         setListAdapter(weatherAdapter);
         notificationsTest();
+
+//        getNetworkImage();
     }
 
 
@@ -161,7 +169,7 @@ public class WeatherListFragment extends ListFragment implements LocationListene
                     myWeatherArray = new Weather[data.length()];
                     for (int i = 0; i < myWeatherArray.length; i++) {
                         day = data.getJSONObject(i);
-                        Weather myWeatherObject = new Weather();
+                        myWeatherObject = new Weather();
                         myWeatherObject.setmDate(day.getInt("time"));
                         myWeatherObject.setmTempMin(day.getInt("temperatureMin"));
                         myWeatherObject.setmTempMax(day.getInt("temperatureMax"));
@@ -215,71 +223,79 @@ public class WeatherListFragment extends ListFragment implements LocationListene
 
     }
 
-    public void notificationsTest() {
-        Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.weather);
-
-        RemoteViews customNotifView = new RemoteViews(getActivity().getPackageName(),
-                R.layout.custom_notification);
-        customNotifView.setTextViewText(R.id.text, "Its raining!");
-        customNotifView.setImageViewResource(R.id.imageView, R.drawable.weather);
 
 
-        NotificationCompat.Builder mBuilder =
-                new NotificationCompat.Builder(getActivity())
-                        .setSmallIcon(R.drawable.weather)
-                        .setLargeIcon(bm)
-                        .setContentTitle("My notification")
-//                            .setContentInfo("5")
-
-                        .setContentText("Hello World!");
-
-        mBuilder.setContent(customNotifView);
-
-//            NotificationCompat.InboxStyle inboxStyle =
-//                    new NotificationCompat.InboxStyle();
-//            String[] events = new String[6];
-//            events[0] = "die die die";
-//            events[1] = "hey hey hey";
-//            events[2] = "die die die";
-//            events[3] = "hey hey hey";
-//            events[4] = "die die die";
-//            events[5] = "hey hey hey";
-//            // Sets a title for the Inbox style big view
-//            inboxStyle.setBigContentTitle("Event tracker details:");
+//    public void getNetworkImage() {
+//        mImageView = (NetworkImageView)getActivity().findViewById(R.id.imageView2);
 //
-//            // Moves events into the big view
-//            for (int i=0; i < events.length; i++) {
 //
-//                inboxStyle.addLine(events[i]);
+//
+//        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+//
+//
+//        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, myWeatherObject.getNetworkImage(myWeatherObject.getIcon()) , null, new Response.Listener<JSONObject>() {
+//
+//            @Override
+//            public void onResponse(JSONObject response) {
+//
+//                //put my code here
+//                Log.e("hello", response.toString());
+//                String myString = null;
+//                String secondString = null;
+//
+//                try{
+//                    //to parse some JSON
+//
+//                    JSONObject responseData = response.getJSONObject("responseData");
+//                    JSONArray results = responseData.getJSONArray("results");
+////                    myDataArray = new String[results.length()];
+////                    for(int i = 0; i < results.length(); i++){
+////                        JSONObject jsonObject = results.getJSONObject(i);
+////                        myDataArray[i] = jsonObject.getString("contentNoFormatting");
+////                    }
+//                    JSONObject aResult = results.getJSONObject(1);
+//                    myString = aResult.getString("titleNoFormatting");
+//
+//                    JSONObject photo = results.getJSONObject(1);
+//                    secondString = photo.getString("url");
+//
+//                    mImageView.setImageUrl(secondString, mImageLoader);
+//
+//                }catch(JSONException e){
+//                    e.printStackTrace();
+//                }
+//
+//
+//
+//
+//
 //            }
-//            // Moves the big view style object into the notification object.
-//            mBuilder.setStyle(inboxStyle);
-
-        // Issue the notification here.
-
-        // Creates an explicit intent for an Activity in your app
-        Intent resultIntent = new Intent(getActivity(), MainActivity.class);
-
-        // The stack builder object will contain an artificial back stack for the
-        // started Activity.
-        // This ensures that navigating backward from the Activity leads out of
-        // your application to the Home screen.
-        TaskStackBuilder stackBuilder = TaskStackBuilder.create(getActivity());
-        // Adds the back stack for the Intent (but not the Intent itself)
-        stackBuilder.addParentStack(MainActivity.class);
-        // Adds the Intent that starts the Activity to the top of the stack
-        stackBuilder.addNextIntent(resultIntent);
-        PendingIntent resultPendingIntent =
-                stackBuilder.getPendingIntent(
-                        0,
-                        PendingIntent.FLAG_UPDATE_CURRENT
-                );
-        mBuilder.setContentIntent(resultPendingIntent);
-        NotificationManager mNotificationManager =
-                (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
-        // mId allows you to update the notification later on.
-        int mId = 1;
-        mNotificationManager.notify(mId, mBuilder.build());
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//
+//            }
+//
+//        }
+//
+//        );
+//
+//        requestQueue.add(jsonObjectRequest);
+//
+//        mImageLoader = new ImageLoader(requestQueue, new ImageLoader.ImageCache() {
+//            private final LruCache<String, Bitmap> mChache = new LruCache<String, Bitmap>(10);
+//            @Override
+//            public Bitmap getBitmap(String url) {
+//
+//                return mChache.get(url);
+//            }
+//
+//            @Override
+//            public void putBitmap(String url, Bitmap bitmap) {
+//                mChache.put(url,bitmap);
+//            }
+//        });
+//    }
     }
 
-}
+
