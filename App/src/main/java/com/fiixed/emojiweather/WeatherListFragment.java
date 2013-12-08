@@ -39,8 +39,7 @@ public class WeatherListFragment extends ListFragment implements LocationListene
     String currentLoc;
     JSONArray data;
     JSONObject day;
-    ImageLoader mImageLoader;
-    NetworkImageView mImageView;
+
 
     OnWeatherSelectedListener mCallback;
 
