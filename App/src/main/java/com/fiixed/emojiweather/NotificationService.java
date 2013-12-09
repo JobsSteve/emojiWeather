@@ -1,6 +1,7 @@
 package com.fiixed.emojiweather;
 
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -14,11 +15,16 @@ import android.widget.Toast;
  */
 public class NotificationService extends Service {
 
+
     private Looper mServiceLooper;
     private ServiceHandler mServiceHandler;
+    Context context;
+
+
 
     // Handler that receives messages from the thread
     private final class ServiceHandler extends Handler {
+        Notification n = new Notification(context);
         public ServiceHandler(Looper looper) {
             super(looper);
         }
@@ -35,7 +41,6 @@ public class NotificationService extends Service {
                     }
                 }
             }
-            Notification n = new Notification(getApplicationContext());
             // Stop the service using the startId, so that we don't stop
             // the service in the middle of handling another job
             stopSelf(msg.arg1);
@@ -61,7 +66,6 @@ public class NotificationService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         Toast.makeText(this, "service starting", Toast.LENGTH_SHORT).show();
 
-
         // For each start request, send a message to start a job and deliver the
         // start ID so we know which request we're stopping when we finish the job
         Message msg = mServiceHandler.obtainMessage();
@@ -82,4 +86,5 @@ public class NotificationService extends Service {
     public void onDestroy() {
         Toast.makeText(this, "service done", Toast.LENGTH_SHORT).show();
     }
+
 }
